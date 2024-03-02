@@ -1,4 +1,3 @@
-import { BinaryTreeNode } from './BinaryTreeNode.js'
 import {DEFAULT_CONFIG, connectEdges, drawNode, getRequiredHeightandWidth, treeConstructor} from './treeUtils.js'
 
 const canvas = document.querySelector('canvas')

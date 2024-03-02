@@ -44,7 +44,6 @@ export function drawNode( value, canvasElement, x, y){
 }
 
 export function connectEdges(canvasElement, xCoordinates, yCoordinates) {
-  console.log({canvasElement, xCoordinates, yCoordinates})
   const { xStart, xEnd} = xCoordinates
   const { yStart, yEnd } = yCoordinates
   
