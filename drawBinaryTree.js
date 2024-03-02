@@ -1,7 +1,42 @@
 import { BinaryTreeNode } from './BinaryTreeNode.js'
-import {DEFAULT_CONFIG, connectEdges, drawNode, getRequiredHeightandWidth} from './treeUtils.js'
+import {DEFAULT_CONFIG, connectEdges, drawNode, getRequiredHeightandWidth, treeConstructor} from './treeUtils.js'
 
 const canvas = document.querySelector('canvas')
+
+const applyBtn = document.querySelector('.apply-button')
+const resetBtn = document.querySelector('.reset-button')
+const textarea = document.querySelector('.input');
+
+textarea.addEventListener('input', function () {
+  this.value = validateInput(this.value);
+});
+
+applyBtn.addEventListener('click', ()=>{
+  if(textarea.value === '' || textarea.value.trim() === ',') {
+    alert('Please enter the values it accepts number and null values')
+    return
+  }
+  init(textarea.value)
+})
+
+resetBtn.addEventListener('click', ()=>{
+  textarea.value = ''
+  clearCanvas()
+})
+
+function init (value){
+  clearCanvas()
+  const root = treeConstructor(value)
+  drawBinaryTree(root,canvas)
+}
+
+function validateInput(input) {
+  // Use a regular expression to allow only the string "null", numbers, and commas
+  const sanitizedInput = input.replace(/[^0-9,null,]|,{2,}/g, '');
+
+  // Replace consecutive commas with a single comma
+  return sanitizedInput.replace(/,+/g, ',');
+}
 
 function drawBinaryTree (root, canvasElement) {
   const maxHeight = window.innerHeight
@@ -61,32 +96,8 @@ function recursivelyDrawNodes (root, canvasElement, currentLevel, horizontalConf
   }
 }
 
-const root = new BinaryTreeNode(10)
-
-const node2 = new BinaryTreeNode(20)
-root.setLeft(node2)
-
-const node3 = new BinaryTreeNode(30)
-root.setRight(node3)
-
-const node4  = new BinaryTreeNode(40)
-node2.setLeft(node4) 
-
-const node5  = new BinaryTreeNode(null)
-node2.setRight(node5) 
-
-const node6 = new BinaryTreeNode(30)
-node3.setLeft(node6)
-
-const node7 = new BinaryTreeNode(30)
-node3.setRight(node7)
-
-const node8 = new BinaryTreeNode(90)
-node4.setLeft(node8)
-
-const node9 = new BinaryTreeNode(80)
-node4.setRight(node9)
-
-
-drawBinaryTree(root, canvas)
-console.log(root)
+function clearCanvas(){
+  const context = canvas.getContext('2d')
+  context.clearRect(0,0,canvas.width,canvas.height)
+}
+window.addEventListener('resize', ()=>init(textarea.value))

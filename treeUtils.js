@@ -1,3 +1,5 @@
+import {BinaryTreeNode} from "./BinaryTreeNode.js"
+
 export const DEFAULT_CONFIG = {
   radius: 20,
   nodeWidthSpacing: 25, 
@@ -60,4 +62,49 @@ export function connectEdges(canvasElement, xCoordinates, yCoordinates) {
   
   // context.lineTo(xEnd, yEnd)
   context.stroke()
+}
+
+export function treeConstructor(input){
+  input = parseInput(input)
+  
+  const queue = []
+  let idx = 0
+  const root = new BinaryTreeNode(input[idx])
+  idx++
+  queue.push(root)
+  
+  while(queue.length && idx < input.length){
+    const node = queue.shift()
+    if(idx < input.length) {
+      if(input[idx] !== null){
+        const leftNode = new BinaryTreeNode(input[idx])
+        node.setLeft(leftNode)
+        queue.push(leftNode)
+      }
+      idx++
+    }
+    if(idx < input.length) {
+      if(input[idx] !== null){
+        const rightNode = new BinaryTreeNode(input[idx])
+        node.setRight(rightNode)
+        queue.push(rightNode)
+      }
+      idx++
+    }
+  }
+  return root
+}
+
+export function parseInput(input) {
+  // let parsedInput = ''
+  // for(let i = 0; i < input.length; i++){
+  //   const ch = input.charAt(i)
+  //   if(ch !== " ") parsedInput += ch
+  // }
+  return input.split(',')
+    .map(ele => {
+      if(ele === 'null') return null
+      else if(ele !== '') return ele //parseInt(ele)
+    })
+    .filter(ele=>ele !== undefined)
 }

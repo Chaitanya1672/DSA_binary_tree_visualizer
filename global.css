@@ -3,3 +3,36 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+.input-container {
+  position: absolute;
+  top: 5%;
+  left: 5%;
+  width: 12rem;
+}
+
+textarea {
+  resize: none;
+  width: 100%;
+  height: 6rem;
+  border-radius: 9px;
+  padding: 5px;
+}
+
+.action-buttons{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+button {
+  width: 48%;
+  height: 2rem;
+  background-color: lightsalmon;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  cursor: pointer;
+  background-color: salmon; 
+}
